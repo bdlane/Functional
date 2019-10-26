@@ -25,5 +25,20 @@ namespace Functional
             return source.Match(nothing: nothing,
                                 just: (v) => () => just(v));
         }
+
+        public static IMaybe<T> From<T>(T value)
+        {
+            return value != null ? (IMaybe<T>)new Just<T>(value) : new Nothing<T>();
+        }
+
+        public static IMaybe<T> From<T>(T value, Predicate<T> predicate)
+        {
+            if (predicate is null)
+            {
+                throw new ArgumentNullException(nameof(predicate));
+            }
+
+            return value != null && predicate(value) ? (IMaybe<T>)new Just<T>(value) : new Nothing<T>();
+        }
     }
 }

@@ -2,6 +2,7 @@
 using FluentAssertions;
 using System;
 using Xunit;
+using Functional.FluentAssertions;
 
 namespace Functional.Tests
 {
@@ -64,6 +65,69 @@ namespace Functional.Tests
 
             // Assert
             actual.Should().Be(expected);
+        }
+
+        [Theory]
+        [InlineAutoData]
+        public void FromReturnsJustWhenValueIsNotNull(object value)
+        {
+            // Arrange
+
+            // Act
+            var actual = Maybe.From(value);
+
+            // Assert
+            actual.Match(new object(), v => v).Should().Be(value);
+        }
+
+        [Fact]
+        public void FromReturnsNothingWhenValueIsNull()
+        {
+            // Arrange
+
+            // Act
+            var actual = Maybe.From((object)null);
+
+            // Assert
+            actual.Should().BeEmpty();
+        }
+
+        [Theory]
+        [InlineAutoData]
+        public void FromWithPredicateReturnsJustWhenValueIsNotNullAndPredicateIsTrue(object value)
+        {
+            // Arrange
+
+            // Act
+            var actual = Maybe.From(value, v => v == value);
+
+            // Assert
+            actual.Match(new object(), v => v).Should().Be(value);
+        }
+
+        [Theory]
+        [InlineAutoData]
+        public void FromWithPredicateReturnsNothingWhenValueIsNotNullAndPredicateIsFalse(object value)
+        {
+            // Arrange
+
+            // Act
+            var actual = Maybe.From(value, _ => false);
+
+            // Assert
+            actual.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void FromWithPredicateReturnsNothingWhenValueIsNullAndPredicateIsTrue()
+        {
+            // Arrange
+
+            // Act
+            var actual = Maybe.From((object)null, _ => true);
+
+            // Assert
+            actual.Should().BeEmpty();
         }
     }
 }

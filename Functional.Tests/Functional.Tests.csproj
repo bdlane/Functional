@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Functional.FluentAssertions\Functional.FluentAssertions.csproj" />
     <ProjectReference Include="..\Functional\Functional.csproj" />
   </ItemGroup>
 
