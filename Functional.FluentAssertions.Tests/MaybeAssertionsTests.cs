@@ -21,6 +21,19 @@ namespace Functional.FluentAssertions.Tests
         }
 
         [Fact]
+        public void AssertionFailsWhenAssertingANullMaybeIsEmpty()
+        {
+            // Arrange
+            IMaybe<object> subject = null;
+
+            // Act
+            Action act = () => subject.Should().BeEmpty();
+
+            // Assert
+            act.Should().Throw<XunitException>("Expected subject not to be <null>.");
+        }
+
+        [Fact]
         public void AssertionFailsWhenAssertingAFilledMaybeIsEmpty()
         {
             // Arrange
@@ -58,6 +71,19 @@ namespace Functional.FluentAssertions.Tests
 
             // Assert
             fun.Should().NotThrow().Which.Should().Be(value);
+        }
+
+        [Fact]
+        public void AssertionFailsWhenAssertingANullMaybeIsFilled()
+        {
+            // Arrange
+            IMaybe<object> subject = null;
+
+            // Act
+            Action act = () => subject.Should().BeSomething();
+
+            // Assert
+            act.Should().Throw<XunitException>("Expected subject not to be <null>.");
         }
     }
 }

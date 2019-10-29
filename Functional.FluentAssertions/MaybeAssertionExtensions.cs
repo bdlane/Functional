@@ -2,6 +2,7 @@
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Functional.FluentAssertions
@@ -10,11 +11,6 @@ namespace Functional.FluentAssertions
     {
         public static MaybeAssertions<T> Should<T>(this IMaybe<T> maybe)
         {
-            if (maybe is null)
-            {
-                throw new ArgumentNullException(nameof(maybe));
-            }
-
             return new MaybeAssertions<T>(maybe);
         }
     }
@@ -25,11 +21,6 @@ namespace Functional.FluentAssertions
     {
         public MaybeAssertions(IMaybe<T> maybe) : base(maybe)
         {
-            if (maybe is null)
-            {
-                throw new ArgumentNullException(nameof(maybe));
-            }
-
             Subject = maybe;
         }
 
@@ -41,6 +32,9 @@ namespace Functional.FluentAssertions
         {
             Execute.Assertion
                 .BecauseOf(because, becauseArgs)
+                .ForCondition(!(Subject is null))
+                .FailWith("Expected {context:subject} not to be <null>{reason}.")
+                .Then
                 .ForCondition(Subject.Match(true, _ => false))
                 .FailWith("Expected {context:subject} to be empty, but it was filled.");
 
@@ -49,14 +43,18 @@ namespace Functional.FluentAssertions
 
         public AndWhichConstraint<MaybeAssertions<T>, T> BeSomething(string because = "", params object[] becauseArgs)
         {
-            var value = Subject.Match(Enumerable.Empty<T>(), v => new T[] { v });
-
             Execute.Assertion
                 .BecauseOf(because, becauseArgs)
-                .ForCondition(value.Any())
+                .ForCondition(!(Subject is null))
+                .FailWith("Expected {context:subject} not to be <null>{reason}.")
+                .Then
+                .Given(() => ToList(Subject))
+                .ForCondition(l => l.Any())
                 .FailWith("Expected {context:subject} to be something, but it was empty.");
 
-            return new AndWhichConstraint<MaybeAssertions<T>, T>(this, value.Single());
+            return new AndWhichConstraint<MaybeAssertions<T>, T>(this, ToList(Subject).Single());
+
+            IEnumerable<T> ToList(IMaybe<T> source) => Subject.Match(Enumerable.Empty<T>(), v => new T[] { v });
         }
     }
 }
