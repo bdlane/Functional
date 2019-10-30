@@ -129,5 +129,42 @@ namespace Functional.Tests
             // Assert
             actual.Should().BeEmpty();
         }
+
+        [Fact]
+        public void FromIsNullOrEmptyReturnsNothingWhenStringIsNull()
+        {
+            // Arrange
+
+            // Act
+            var actual = Maybe.FromIsNullOrEmpty(null);
+
+            // Assert
+            actual.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void FromIsNullOrEmptyReturnsNothingWhenStringIsEmpty()
+        {
+            // Arrange
+
+            // Act
+            var actual = Maybe.FromIsNullOrEmpty("");
+
+            // Assert
+            actual.Should().BeEmpty();
+        }
+
+        [Theory]
+        [InlineAutoData]
+        public void FromIsNullOrEmptyReturnsFilledWhenStringIsNotEmpty(string s)
+        {
+            // Arrange
+
+            // Act
+            var actual = Maybe.FromIsNullOrEmpty(s);
+
+            // Assert
+            actual.Should().BeSomething();
+        }
     }
 }

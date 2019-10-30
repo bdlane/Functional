@@ -40,5 +40,10 @@ namespace Functional
 
             return value != null && predicate(value) ? (IMaybe<T>)new Just<T>(value) : new Nothing<T>();
         }
+
+        public static IMaybe<string> FromIsNullOrEmpty(string value)
+        {
+            return From(value, s => !string.IsNullOrEmpty(s)); 
+        }
     }
 }
