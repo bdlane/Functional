@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Functional", "Functional\Functional.csproj", "{EF47F21C-4021-4598-984F-9B227B4FD8CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Functional", "Functional\Functional.csproj", "{EF47F21C-4021-4598-984F-9B227B4FD8CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Functional.Tests", "Functional.Tests\Functional.Tests.csproj", "{CEC94E49-01C5-4EFF-9D7B-DE91939E3777}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Functional.Tests", "Functional.Tests\Functional.Tests.csproj", "{CEC94E49-01C5-4EFF-9D7B-DE91939E3777}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Functional.FluentAssertions", "Functional.FluentAssertions\Functional.FluentAssertions.csproj", "{0FED10C4-F36E-4899-AFC7-420817A1FDA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Functional.FluentAssertions", "Functional.FluentAssertions\Functional.FluentAssertions.csproj", "{0FED10C4-F36E-4899-AFC7-420817A1FDA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Functional.FluentAssertions.Tests", "Functional.FluentAssertions.Tests\Functional.FluentAssertions.Tests.csproj", "{2A108984-1738-4DCA-8F12-FE7D834C5A0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Functional.FluentAssertions.Tests", "Functional.FluentAssertions.Tests\Functional.FluentAssertions.Tests.csproj", "{2A108984-1738-4DCA-8F12-FE7D834C5A0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Functional.AutoFixture", "Functional.AutoFixture\Functional.AutoFixture.csproj", "{2FC8A76D-ADAA-46B4-BA18-90B5581B09F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Functional.AutoFixture.Tests", "Functional.AutoFixture.Tests\Functional.AutoFixture.Tests.csproj", "{89826041-0E43-4AF0-956F-29B3D1ABC9B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{2A108984-1738-4DCA-8F12-FE7D834C5A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A108984-1738-4DCA-8F12-FE7D834C5A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A108984-1738-4DCA-8F12-FE7D834C5A0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FC8A76D-ADAA-46B4-BA18-90B5581B09F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FC8A76D-ADAA-46B4-BA18-90B5581B09F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FC8A76D-ADAA-46B4-BA18-90B5581B09F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FC8A76D-ADAA-46B4-BA18-90B5581B09F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89826041-0E43-4AF0-956F-29B3D1ABC9B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89826041-0E43-4AF0-956F-29B3D1ABC9B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89826041-0E43-4AF0-956F-29B3D1ABC9B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89826041-0E43-4AF0-956F-29B3D1ABC9B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
