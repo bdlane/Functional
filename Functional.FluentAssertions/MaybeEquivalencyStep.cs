@@ -61,24 +61,19 @@ namespace Functional.FluentAssertions
 
         private static void HandleCore<TSubject, TExpectation>(IMaybe<TSubject> subject, IMaybe<TExpectation> expectation, IEquivalencyValidationContext context, IEquivalencyValidator parent)
         {
-            Action<TExpectation> just = (e) =>
-            {
-                subject.Match(nothing: () => AssertionScope.Current.FailWith("Expected {context:subject} to be filled, but it was empty."),
-                              just: (s) => new Action(() =>
-                              {
-                                  var c = context.CreateForMaybeValue(s, e);
+            expectation.Match(nothing, just)();
 
-                                  parent.AssertEqualityUsing(c);
-                              }))();
-            };
-
-            Action nothing = () =>
+            void nothing()
             {
                 subject.Match(nothing: () => { },
                               just: _ => new Action(() => AssertionScope.Current.FailWith("Expected subject to be empty, but it was filled.")))();
-            };
+            }
 
-            expectation.Match(nothing, just)();
+            void just(TExpectation e)
+            {
+                subject.Match(nothing: () => AssertionScope.Current.FailWith("Expected {context:subject} to be filled, but it was empty."),
+                              just: (s) => new Action(() => parent.AssertEqualityUsing(context.CreateForMaybeValue(s, e))))();
+            }
         }
 
         private static bool IsMaybe(Type type) =>
