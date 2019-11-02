@@ -237,7 +237,7 @@ namespace Functional.FluentAssertions.Tests
         }
 
         [Theory]
-        [InlineAutoData]
+        [AutoData]
         public void AssertionFailsWhenContainedValuesAreNotEquivalent(int subjectValue, int expectationValue)
         {
             // Arrange
@@ -256,7 +256,7 @@ namespace Functional.FluentAssertions.Tests
         }
 
         [Theory]
-        [InlineAutoData]
+        [AutoData]
         public void AssertionFailsWhenContainedObjectsAreNotEquivalent(Foo subjectValue, Foo expectationValue)
         {
             // Arrange
@@ -275,7 +275,7 @@ namespace Functional.FluentAssertions.Tests
         }
 
         [Theory]
-        [InlineAutoData]
+        [AutoData]
         public void CanAssertMaybesContainingEquivalentValuesAreEquivalent(int value)
         {
             // Arrange
@@ -294,7 +294,7 @@ namespace Functional.FluentAssertions.Tests
         }
 
         [Theory]
-        [InlineAutoData]
+        [AutoData]
         public void CanAssertMaybesContainingEquivalentObjectsAreEquivalent(Foo value)
         {
             // Arrange
@@ -313,7 +313,7 @@ namespace Functional.FluentAssertions.Tests
         }
 
         [Theory]
-        [InlineAutoData]
+        [AutoData]
         public void AssertionFailsWhenContainedObjectsHaveMaybePropertiesAndAreNotEquivalent(int id, string subjectName,  string expectationName)
         {
             // Arrange
@@ -332,7 +332,7 @@ namespace Functional.FluentAssertions.Tests
         }
 
         [Theory]
-        [InlineAutoData]
+        [AutoData]
         public void CanAssertMaybesContainingEquivalentObjectsWithMaybePropertiesAreEquivalent(int id, string name)
         {
             // Arrange

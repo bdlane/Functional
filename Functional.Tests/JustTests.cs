@@ -20,7 +20,7 @@ namespace Functional.Tests
         }
 
         [Theory]
-        [InlineAutoData]
+        [AutoData]
         public void MatchInvokesJust(int x, int y)
         {
             // Arrange

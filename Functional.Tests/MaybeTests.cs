@@ -22,7 +22,7 @@ namespace Functional.Tests
         }
 
         [Theory]
-        [InlineAutoData]
+        [AutoData]
         public void BindReturnsResultOfSelectorWhenSourceIsFilled(int x, int y)
         {
             // Arrange
@@ -40,7 +40,7 @@ namespace Functional.Tests
         // When -> executes Action
 
         [Theory]
-        [InlineAutoData]
+        [AutoData]
         public void MatchExecutesNothingAction(int actual, int expected)
         {
             // Arrange
@@ -54,7 +54,7 @@ namespace Functional.Tests
         }
 
         [Theory]
-        [InlineAutoData]
+        [AutoData]
         public void MatchExecutesJustAction(int actual, int expected)
         {
             // Arrange
@@ -68,7 +68,7 @@ namespace Functional.Tests
         }
 
         [Theory]
-        [InlineAutoData]
+        [AutoData]
         public void FromReturnsJustWhenValueIsNotNull(object value)
         {
             // Arrange
@@ -93,7 +93,7 @@ namespace Functional.Tests
         }
 
         [Theory]
-        [InlineAutoData]
+        [AutoData]
         public void FromWithPredicateReturnsJustWhenValueIsNotNullAndPredicateIsTrue(object value)
         {
             // Arrange
@@ -106,7 +106,7 @@ namespace Functional.Tests
         }
 
         [Theory]
-        [InlineAutoData]
+        [AutoData]
         public void FromWithPredicateReturnsNothingWhenValueIsNotNullAndPredicateIsFalse(object value)
         {
             // Arrange
@@ -155,7 +155,7 @@ namespace Functional.Tests
         }
 
         [Theory]
-        [InlineAutoData]
+        [AutoData]
         public void FromIsNullOrEmptyReturnsFilledWhenStringIsNotEmpty(string s)
         {
             // Arrange
