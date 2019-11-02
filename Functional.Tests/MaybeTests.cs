@@ -166,5 +166,16 @@ namespace Functional.Tests
             // Assert
             actual.Should().BeSomething();
         }
+
+        [Fact]
+        public void EmptyReturnsNothing()
+        {
+            // Arrange
+
+            // Act
+
+            // Assert
+            Maybe.Empty<object>().Should().BeEmpty();
+        }
     }
 }

@@ -45,5 +45,7 @@ namespace Functional
         {
             return From(value, s => !string.IsNullOrEmpty(s)); 
         }
+
+        public static IMaybe<T> Empty<T>() => new Nothing<T>();
     }
 }
