@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Functional
 {
@@ -26,6 +27,18 @@ namespace Functional
                                 just: (v) => () => just(v));
         }
 
+        /// <summary>
+        /// Returns the value of the specified maybe, or the specified value if the maybe is empty.
+        /// </summary>
+        /// <typeparam name="T">The type of the object contained by <paramref name="source"/>.</typeparam>
+        /// <param name="source">The maybe to return the specified value for.</param>
+        /// <param name="nothing">The value to return if the maybe is empty.</param>
+        /// <returns></returns>
+        public static T Match<T>(this IMaybe<T> source, T nothing)
+        {
+            return source.Match(nothing: nothing, just: v => v);
+        }
+
         public static IMaybe<T> From<T>(T value)
         {
             return value != null ? (IMaybe<T>)new Just<T>(value) : new Nothing<T>();
@@ -43,7 +56,7 @@ namespace Functional
 
         public static IMaybe<string> FromIsNullOrEmpty(string value)
         {
-            return From(value, s => !string.IsNullOrEmpty(s)); 
+            return From(value, s => !string.IsNullOrEmpty(s));
         }
 
         public static IMaybe<T> Empty<T>() => new Nothing<T>();
