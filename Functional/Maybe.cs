@@ -24,6 +24,11 @@ namespace Functional
 
         public static Action Match<T>(this IMaybe<T> source, Action nothing, Action<T> just)
         {
+            if (source is null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
             return source.Match(nothing: nothing,
                                 just: (v) => () => just(v));
         }
@@ -37,6 +42,11 @@ namespace Functional
         /// <returns></returns>
         public static T Match<T>(this IMaybe<T> source, T nothing)
         {
+            if (source is null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
             return source.Match(nothing: nothing, just: v => v);
         }
 
