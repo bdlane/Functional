@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Functional
@@ -60,5 +61,17 @@ namespace Functional
         }
 
         public static IMaybe<T> Empty<T>() => new Nothing<T>();
+
+        public static IEnumerable<T> Choose<T>(this IEnumerable<IMaybe<T>> source)
+        {
+            if (source is null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            return source.Select(m => m.Match(nothing: Enumerable.Empty<T>(),
+                                              just: v => new [] { v }))
+                         .SelectMany(i => i);
+        }
     }
 }

@@ -1,8 +1,11 @@
-﻿using AutoFixture.Xunit2;
+﻿using AutoFixture;
+using AutoFixture.Xunit2;
 using FluentAssertions;
-using System;
-using Xunit;
 using Functional.FluentAssertions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Xunit;
 
 namespace Functional.Tests
 {
@@ -176,6 +179,26 @@ namespace Functional.Tests
 
             // Assert
             Maybe.Empty<object>().Should().BeEmpty();
+        }
+
+        [Fact]
+        public void ChooseReturnsCollectionWithOnlyFilledMaybes()
+        {
+            // Arrange
+            var fixture = new Fixture();
+
+            var expected = fixture.Create<List<Guid>>();
+            var empty = fixture.Create<List<Nothing<Guid>>>();
+
+            var input = expected.Select(g => Maybe.From(g))
+                                .Cast<IMaybe<Guid>>()
+                                .Union(empty);
+
+            // Act
+            var actual = input.Choose();
+
+            // Assert
+            actual.Should().BeEquivalentTo(expected);
         }
     }
 }
