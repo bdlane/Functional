@@ -4,6 +4,6 @@ namespace Functional
 {
     public interface IMaybe<out T>
     {
-        TResult Match<TResult>(TResult nothing, Func<T, TResult> just);
+        TResult Match<TResult>(TResult none, Func<T, TResult> some);
     }    
 }

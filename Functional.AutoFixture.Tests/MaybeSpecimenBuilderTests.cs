@@ -26,7 +26,7 @@ namespace Functional.AutoFixture.Tests
 
             var actual = fixture.Create<IMaybe<object>>();
 
-            actual.Should().BeAssignableTo<Just<object>>();
+            actual.Should().BeAssignableTo<Some<object>>();
         }
     }
 }

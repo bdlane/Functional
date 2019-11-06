@@ -15,7 +15,7 @@ namespace Functional.Tests
         public void BindReturnsEmptyWhenSourceIsEmpty()
         {
             // Arrange
-            var sut = new Nothing<Guid>();
+            var sut = new None<Guid>();
 
             // Act
             var actual = sut.Bind(_ => Guid.NewGuid());
@@ -29,7 +29,7 @@ namespace Functional.Tests
         public void BindReturnsResultOfSelectorWhenSourceIsFilled(int x, int y)
         {
             // Arrange
-            var sut = new Just<int>(x);
+            var sut = new Some<int>(x);
             var expected = x + y;
 
             // Act
@@ -44,10 +44,10 @@ namespace Functional.Tests
 
         [Theory]
         [AutoData]
-        public void MatchExecutesNothingAction(int actual, int expected)
+        public void MatchExecutesNoneAction(int actual, int expected)
         {
             // Arrange
-            var sut = new Nothing<int>();
+            var sut = new None<int>();
 
             // Act
             sut.Match(() => actual = expected, (v) => actual = v)();
@@ -58,10 +58,10 @@ namespace Functional.Tests
 
         [Theory]
         [AutoData]
-        public void MatchExecutesJustAction(int actual, int expected)
+        public void MatchExecutesSomeAction(int actual, int expected)
         {
             // Arrange
-            var sut = new Just<int>(expected);
+            var sut = new Some<int>(expected);
 
             // Act
             sut.Match(() => actual = 0, (v) => actual = v)();
@@ -72,7 +72,7 @@ namespace Functional.Tests
 
         [Theory]
         [AutoData]
-        public void FromReturnsJustWhenValueIsNotNull(object value)
+        public void FromReturnsSomeWhenValueIsNotNull(object value)
         {
             // Arrange
 
@@ -84,7 +84,7 @@ namespace Functional.Tests
         }
 
         [Fact]
-        public void FromReturnsNothingWhenValueIsNull()
+        public void FromReturnsNoneWhenValueIsNull()
         {
             // Arrange
 
@@ -97,7 +97,7 @@ namespace Functional.Tests
 
         [Theory]
         [AutoData]
-        public void FromWithPredicateReturnsJustWhenValueIsNotNullAndPredicateIsTrue(object value)
+        public void FromWithPredicateReturnsSomeWhenValueIsNotNullAndPredicateIsTrue(object value)
         {
             // Arrange
 
@@ -110,7 +110,7 @@ namespace Functional.Tests
 
         [Theory]
         [AutoData]
-        public void FromWithPredicateReturnsNothingWhenValueIsNotNullAndPredicateIsFalse(object value)
+        public void FromWithPredicateReturnsNoneWhenValueIsNotNullAndPredicateIsFalse(object value)
         {
             // Arrange
 
@@ -122,7 +122,7 @@ namespace Functional.Tests
         }
 
         [Fact]
-        public void FromWithPredicateReturnsNothingWhenValueIsNullAndPredicateIsTrue()
+        public void FromWithPredicateReturnsNoneWhenValueIsNullAndPredicateIsTrue()
         {
             // Arrange
 
@@ -134,7 +134,7 @@ namespace Functional.Tests
         }
 
         [Fact]
-        public void FromIsNullOrEmptyReturnsNothingWhenStringIsNull()
+        public void FromIsNullOrEmptyReturnsNoneWhenStringIsNull()
         {
             // Arrange
 
@@ -146,7 +146,7 @@ namespace Functional.Tests
         }
 
         [Fact]
-        public void FromIsNullOrEmptyReturnsNothingWhenStringIsEmpty()
+        public void FromIsNullOrEmptyReturnsNoneWhenStringIsEmpty()
         {
             // Arrange
 
@@ -171,7 +171,7 @@ namespace Functional.Tests
         }
 
         [Fact]
-        public void EmptyReturnsNothing()
+        public void EmptyReturnsNone()
         {
             // Arrange
 
@@ -188,7 +188,7 @@ namespace Functional.Tests
             var fixture = new Fixture();
 
             var expected = fixture.Create<List<Guid>>();
-            var empty = fixture.Create<List<Nothing<Guid>>>();
+            var empty = fixture.Create<List<None<Guid>>>();
 
             var input = expected.Select(g => Maybe.From(g))
                                 .Cast<IMaybe<Guid>>()

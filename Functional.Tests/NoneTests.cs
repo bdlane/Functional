@@ -4,13 +4,13 @@ using Xunit;
 
 namespace Functional.Tests
 {
-    public class NothingTests
+    public class NoneTests
     {
         [Fact]
-        public void MatchReturnsNothingArgument()
+        public void MatchReturnsNoneArgument()
         {
             // Arrange
-            var sut = new Nothing<Guid>();
+            var sut = new None<Guid>();
 
             ;            // Act
             var actual = sut.Match("empty", _ => "not empty");
@@ -20,10 +20,10 @@ namespace Functional.Tests
         }
 
         [Fact]
-        public void NothingArgumentCannotBeNull()
+        public void NoneArgumentCannotBeNull()
         {
             // Arrange
-            var sut = new Nothing<Guid>();
+            var sut = new None<Guid>();
 
             // Act
             Action act = () => sut.Match(null, _ => "not empty");
@@ -31,7 +31,5 @@ namespace Functional.Tests
             // Assert
             act.Should().Throw<ArgumentNullException>();
         }
-
-
     }
 }

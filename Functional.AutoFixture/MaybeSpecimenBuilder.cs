@@ -19,9 +19,9 @@ namespace Functional.AutoFixture
             }
 
             var containedType = t.GetGenericArguments().First();
-            var justType = typeof(Just<>).MakeGenericType(containedType);
+            var someType = typeof(Some<>).MakeGenericType(containedType);
 
-            return context.Resolve(justType);
+            return context.Resolve(someType);
         }
     }
 }

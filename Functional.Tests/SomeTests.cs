@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Functional.Tests
 {
-    public class JustTests
+    public class SomeTests
     {
         [Fact]
         public void CannotCreateWithNull()
@@ -13,7 +13,7 @@ namespace Functional.Tests
             // Arrange
 
             // Act
-            Action act = () => new Just<object>(null);
+            Action act = () => new Some<object>(null);
 
             // Assert
             act.Should().Throw<ArgumentException>();
@@ -21,10 +21,10 @@ namespace Functional.Tests
 
         [Theory]
         [AutoData]
-        public void MatchInvokesJust(int x, int y)
+        public void MatchInvokesSome(int x, int y)
         {
             // Arrange
-            var sut = new Just<int>(x);
+            var sut = new Some<int>(x);
             var expected = x + y;
 
             // Act
@@ -35,10 +35,10 @@ namespace Functional.Tests
         }
 
         [Fact]
-        public void JustArgumentCannotBeNull()
+        public void SomeArgumentCannotBeNull()
         {
             // Arrange
-            var sut = new Just<Guid>(Guid.NewGuid());
+            var sut = new Some<Guid>(Guid.NewGuid());
 
             // Act
             Action act = () => sut.Match("", null);
@@ -48,10 +48,10 @@ namespace Functional.Tests
         }
 
         [Fact]
-        public void JustArgumentCannotReturnNull()
+        public void SomeArgumentCannotReturnNull()
         {
             // Arrange
-            var sut = new Just<Guid>(Guid.NewGuid());
+            var sut = new Some<Guid>(Guid.NewGuid());
 
             // Act
             Action act = () => sut.Match(null, _ => (string)null);

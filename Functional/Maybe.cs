@@ -18,19 +18,19 @@ namespace Functional
                 throw new ArgumentNullException(nameof(selector));
             }
 
-            return source.Match<IMaybe<TResult>>(nothing: new Nothing<TResult>(),
-                                                 just: v => new Just<TResult>(selector(v)));
+            return source.Match<IMaybe<TResult>>(none: new None<TResult>(),
+                                                 some: v => new Some<TResult>(selector(v)));
         }
 
-        public static Action Match<T>(this IMaybe<T> source, Action nothing, Action<T> just)
+        public static Action Match<T>(this IMaybe<T> source, Action none, Action<T> some)
         {
             if (source is null)
             {
                 throw new ArgumentNullException(nameof(source));
             }
 
-            return source.Match(nothing: nothing,
-                                just: (v) => () => just(v));
+            return source.Match(none: none,
+                                some: (v) => () => some(v));
         }
 
         /// <summary>
@@ -38,21 +38,21 @@ namespace Functional
         /// </summary>
         /// <typeparam name="T">The type of the object contained by <paramref name="source"/>.</typeparam>
         /// <param name="source">The maybe to return the specified value for.</param>
-        /// <param name="nothing">The value to return if the maybe is empty.</param>
+        /// <param name="none">The value to return if the maybe is empty.</param>
         /// <returns></returns>
-        public static T Match<T>(this IMaybe<T> source, T nothing)
+        public static T Match<T>(this IMaybe<T> source, T none)
         {
             if (source is null)
             {
                 throw new ArgumentNullException(nameof(source));
             }
 
-            return source.Match(nothing: nothing, just: v => v);
+            return source.Match(none: none, some: v => v);
         }
 
         public static IMaybe<T> From<T>(T value)
         {
-            return value != null ? (IMaybe<T>)new Just<T>(value) : new Nothing<T>();
+            return value != null ? (IMaybe<T>)new Some<T>(value) : new None<T>();
         }
 
         public static IMaybe<T> From<T>(T value, Predicate<T> predicate)
@@ -62,7 +62,7 @@ namespace Functional
                 throw new ArgumentNullException(nameof(predicate));
             }
 
-            return value != null && predicate(value) ? (IMaybe<T>)new Just<T>(value) : new Nothing<T>();
+            return value != null && predicate(value) ? (IMaybe<T>)new Some<T>(value) : new None<T>();
         }
 
         public static IMaybe<string> FromIsNullOrEmpty(string value)
@@ -70,7 +70,7 @@ namespace Functional
             return From(value, s => !string.IsNullOrEmpty(s));
         }
 
-        public static IMaybe<T> Empty<T>() => new Nothing<T>();
+        public static IMaybe<T> Empty<T>() => new None<T>();
 
         public static IEnumerable<T> Choose<T>(this IEnumerable<IMaybe<T>> source)
         {
@@ -79,8 +79,8 @@ namespace Functional
                 throw new ArgumentNullException(nameof(source));
             }
 
-            return source.Select(m => m.Match(nothing: Enumerable.Empty<T>(),
-                                              just: v => new [] { v }))
+            return source.Select(m => m.Match(none: Enumerable.Empty<T>(),
+                                              some: v => new [] { v }))
                          .SelectMany(i => i);
         }
     }

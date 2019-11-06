@@ -11,7 +11,7 @@ namespace Functional.FluentAssertions.Tests
         public void CanAssertAMaybeIsEmpty()
         {
             // Arrange
-            var subject = new Nothing<object>();
+            var subject = new None<object>();
 
             // Act
             Action act = () => subject.Should().BeEmpty();
@@ -37,7 +37,7 @@ namespace Functional.FluentAssertions.Tests
         public void AssertionFailsWhenAssertingAFilledMaybeIsEmpty()
         {
             // Arrange
-            var subject = new Just<object>(new object());
+            var subject = new Some<object>(new object());
 
             // Act
             Action act = () => subject.Should().BeEmpty();
@@ -50,7 +50,7 @@ namespace Functional.FluentAssertions.Tests
         public void AssertionFailsWhenAssertingAnEmptyMaybeIsFilled()
         {
             // Arrange
-            var subject = new Nothing<object>();
+            var subject = new None<object>();
 
             // Act
             Action act = () => subject.Should().BeSomething();
@@ -64,7 +64,7 @@ namespace Functional.FluentAssertions.Tests
         {
             // Arrange
             var value = Guid.NewGuid();
-            var subject = new Just<Guid>(value);
+            var subject = new Some<Guid>(value);
 
             // Act
             Func<Guid> fun = () => subject.Should().BeSomething().Subject;

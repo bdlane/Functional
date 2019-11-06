@@ -18,7 +18,7 @@ namespace Functional.FluentAssertions.Tests
         public void CanHandleNothingExpectation()
         {
             // Arrange
-            var expectation = new Nothing<int>();
+            var expectation = new None<int>();
 
             var context = new EquivalencyValidationContext
             {
@@ -26,7 +26,7 @@ namespace Functional.FluentAssertions.Tests
                 CompileTimeType = expectation.GetType()
             };
 
-            var config = new EquivalencyAssertionOptions<Nothing<int>>();
+            var config = new EquivalencyAssertionOptions<None<int>>();
 
             var sut = new MaybeEquivalencyStep();
 
@@ -41,7 +41,7 @@ namespace Functional.FluentAssertions.Tests
         public void CanHandleJustExpectation()
         {
             // Arrange
-            var expectation = new Just<Guid>(Guid.NewGuid());
+            var expectation = new Some<Guid>(Guid.NewGuid());
 
             var context = new EquivalencyValidationContext
             {
@@ -49,7 +49,7 @@ namespace Functional.FluentAssertions.Tests
                 CompileTimeType = expectation.GetType()
             };
 
-            var config = new EquivalencyAssertionOptions<Nothing<int>>();
+            var config = new EquivalencyAssertionOptions<None<int>>();
 
             var sut = new MaybeEquivalencyStep();
 
@@ -64,7 +64,7 @@ namespace Functional.FluentAssertions.Tests
         public void CanHandleIMaybeExpectation()
         {
             // Arrange
-            IMaybe<Guid> expectation = new Just<Guid>(Guid.NewGuid());
+            IMaybe<Guid> expectation = new Some<Guid>(Guid.NewGuid());
 
             var context = new EquivalencyValidationContext
             {
@@ -72,7 +72,7 @@ namespace Functional.FluentAssertions.Tests
                 CompileTimeType = expectation.GetType()
             };
 
-            var config = new EquivalencyAssertionOptions<Nothing<int>>();
+            var config = new EquivalencyAssertionOptions<None<int>>();
 
             var sut = new MaybeEquivalencyStep();
 
@@ -95,7 +95,7 @@ namespace Functional.FluentAssertions.Tests
                 CompileTimeType = expectation.GetType()
             };
 
-            var config = new EquivalencyAssertionOptions<Nothing<int>>();
+            var config = new EquivalencyAssertionOptions<None<int>>();
 
             var sut = new MaybeEquivalencyStep();
 
@@ -117,7 +117,7 @@ namespace Functional.FluentAssertions.Tests
             var sut = new MaybeEquivalencyStep();
 
             // Act
-            Action act = () => subject.Should().BeEquivalentTo(new Nothing<Guid>());
+            Action act = () => subject.Should().BeEquivalentTo(new None<Guid>());
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -135,7 +135,7 @@ namespace Functional.FluentAssertions.Tests
             var sut = new MaybeEquivalencyStep();
 
             // Act
-            Action act = () => subject.Should().BeEquivalentTo(new Nothing<Guid>());
+            Action act = () => subject.Should().BeEquivalentTo(new None<Guid>());
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -146,7 +146,7 @@ namespace Functional.FluentAssertions.Tests
         public void AssertionFailsWhenExpectationIsNull()
         {
             // Arrange
-            var subject = new Nothing<object>();
+            var subject = new None<object>();
 
             AssertionOptions.EquivalencySteps.AddAfter<ReferenceEqualityEquivalencyStep, MaybeEquivalencyStep>();
 
@@ -164,8 +164,8 @@ namespace Functional.FluentAssertions.Tests
         public void AssertionFailsWhenSubjectIsEmptyAndExpectationIsFilled()
         {
             // Arrange
-            var subject = new Nothing<object>();
-            var expectation = new Just<object>(new object());
+            var subject = new None<object>();
+            var expectation = new Some<object>(new object());
 
             AssertionOptions.EquivalencySteps.Remove<IEquivalencyStep>();
             AssertionOptions.EquivalencySteps.Insert<MaybeEquivalencyStep>();
@@ -183,8 +183,8 @@ namespace Functional.FluentAssertions.Tests
         public void AssertionFailsWhenSubjectIsFilledAndExpectationIsEmpty()
         {
             // Arrange
-            var subject = new Just<object>(new object());
-            var expectation = new Nothing<object>();
+            var subject = new Some<object>(new object());
+            var expectation = new None<object>();
 
             AssertionOptions.EquivalencySteps.Remove<IEquivalencyStep>();
             AssertionOptions.EquivalencySteps.Insert<MaybeEquivalencyStep>();
@@ -202,8 +202,8 @@ namespace Functional.FluentAssertions.Tests
         public void CanAssertAnEmptySubjectAndEmptyExpectationAreEqual()
         {
             // Arrange
-            var subject = new Nothing<object>();
-            var expectation = new Nothing<object>();
+            var subject = new None<object>();
+            var expectation = new None<object>();
 
             AssertionOptions.EquivalencySteps.Remove<IEquivalencyStep>();
             AssertionOptions.EquivalencySteps.Insert<MaybeEquivalencyStep>();
@@ -221,8 +221,8 @@ namespace Functional.FluentAssertions.Tests
         public void CanAssertAEmptyMaybesOfIncompatibleTypesAreEqual()
         {
             // Arrange
-            var subject = new Nothing<int>();
-            var expectation = new Nothing<string>();
+            var subject = new None<int>();
+            var expectation = new None<string>();
 
             AssertionOptions.EquivalencySteps.Remove<IEquivalencyStep>();
             AssertionOptions.EquivalencySteps.Insert<MaybeEquivalencyStep>();
@@ -241,8 +241,8 @@ namespace Functional.FluentAssertions.Tests
         public void AssertionFailsWhenContainedValuesAreNotEquivalent(int subjectValue, int expectationValue)
         {
             // Arrange
-            var subject = new Just<int>(subjectValue);
-            var expectation = new Just<int>(expectationValue);
+            var subject = new Some<int>(subjectValue);
+            var expectation = new Some<int>(expectationValue);
 
             AssertionOptions.EquivalencySteps.Insert<MaybeEquivalencyStep>();
 
@@ -260,8 +260,8 @@ namespace Functional.FluentAssertions.Tests
         public void AssertionFailsWhenContainedObjectsAreNotEquivalent(Foo subjectValue, Foo expectationValue)
         {
             // Arrange
-            var subject = new Just<Foo>(subjectValue);
-            var expectation = new Just<Foo>(expectationValue);
+            var subject = new Some<Foo>(subjectValue);
+            var expectation = new Some<Foo>(expectationValue);
 
             AssertionOptions.EquivalencySteps.Insert<MaybeEquivalencyStep>();
 
@@ -279,8 +279,8 @@ namespace Functional.FluentAssertions.Tests
         public void CanAssertMaybesContainingEquivalentValuesAreEquivalent(int value)
         {
             // Arrange
-            var subject = new Just<int>(value);
-            var expectation = new Just<int>(value);
+            var subject = new Some<int>(value);
+            var expectation = new Some<int>(value);
 
             AssertionOptions.EquivalencySteps.Insert<MaybeEquivalencyStep>();
 
@@ -298,8 +298,8 @@ namespace Functional.FluentAssertions.Tests
         public void CanAssertMaybesContainingEquivalentObjectsAreEquivalent(Foo value)
         {
             // Arrange
-            var subject = new Just<Foo>(value);
-            var expectation = new Just<Foo>(value);
+            var subject = new Some<Foo>(value);
+            var expectation = new Some<Foo>(value);
 
             AssertionOptions.EquivalencySteps.Insert<MaybeEquivalencyStep>();
 
@@ -317,8 +317,8 @@ namespace Functional.FluentAssertions.Tests
         public void AssertionFailsWhenContainedObjectsHaveMaybePropertiesAndAreNotEquivalent(int id, string subjectName,  string expectationName)
         {
             // Arrange
-            var subject = new Just<Bar>(new Bar { Id = id, Foo = new Just<Foo>(new Foo { Name = subjectName }) });
-            var expectation = new Just<Bar>(new Bar { Id = id, Foo = new Just<Foo>(new Foo { Name = expectationName }) });
+            var subject = new Some<Bar>(new Bar { Id = id, Foo = new Some<Foo>(new Foo { Name = subjectName }) });
+            var expectation = new Some<Bar>(new Bar { Id = id, Foo = new Some<Foo>(new Foo { Name = expectationName }) });
 
             AssertionOptions.EquivalencySteps.Insert<MaybeEquivalencyStep>();
 
@@ -336,8 +336,8 @@ namespace Functional.FluentAssertions.Tests
         public void CanAssertMaybesContainingEquivalentObjectsWithMaybePropertiesAreEquivalent(int id, string name)
         {
             // Arrange
-            var subject = new Just<Bar>(new Bar { Id = id, Foo = new Just<Foo>(new Foo { Name = name }) });
-            var expectation = new Just<Bar>(new Bar { Id = id, Foo = new Just<Foo>(new Foo { Name = name }) });
+            var subject = new Some<Bar>(new Bar { Id = id, Foo = new Some<Foo>(new Foo { Name = name }) });
+            var expectation = new Some<Bar>(new Bar { Id = id, Foo = new Some<Foo>(new Foo { Name = name }) });
 
             AssertionOptions.EquivalencySteps.Insert<MaybeEquivalencyStep>();
 
