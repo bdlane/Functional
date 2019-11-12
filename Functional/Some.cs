@@ -2,7 +2,7 @@
 
 namespace Functional
 {
-    public class Some<T> : IMaybe<T>
+    public class Some<T> : IMaybe<T>, IEquatable<Some<T>>
     {
         private readonly T value;
 
@@ -31,6 +31,28 @@ namespace Functional
             }
 
             return some(value);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if(!(obj is Some<T> s))
+            {
+                return false;
+            }
+
+            return Equals(s);
+        }
+
+        public override int GetHashCode() => value.GetHashCode();
+        
+        public bool Equals(Some<T> other)
+        {
+            if (other is null)
+            {
+                return false;
+            }
+
+            return value.Equals(other.value);
         }
     }
 }

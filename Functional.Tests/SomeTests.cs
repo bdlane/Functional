@@ -1,6 +1,8 @@
 ﻿using AutoFixture.Xunit2;
 using FluentAssertions;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Functional.Tests
@@ -58,6 +60,54 @@ namespace Functional.Tests
 
             // Assert
             act.Should().Throw<ArgumentException>();
+        }
+
+        [Theory, AutoData]
+        public void TwoInstancesAsObjectsAreEqualWhenTheirContainedValuesAreEqual(Guid value)
+        {
+            // Arrange
+            object m1 = new Some<Guid>(value);
+            object m2 = new Some<Guid>(value);
+
+            // Act
+
+            // Assert
+            m1.Equals(m2).Should().BeTrue();
+        }
+
+        [Theory, AutoData]
+        public void ImplementsIEquatable(Some<Guid> some)
+        {
+            // Arrange
+
+            // Act
+
+            // Assert
+            some.Should().BeAssignableTo<IEquatable<Some<Guid>>>();
+        }
+
+        [Theory, AutoData]
+        public void TwoInstancesAreEqualWhenTheirContainedValuesAreEqual(Guid value)
+        {
+            // Arrange
+            Some<Guid> m1 = new Some<Guid>(value);
+            Some<Guid> m2 = new Some<Guid>(value);
+
+            // Act
+
+            // Assert
+            m1.Equals(m2).Should().BeTrue();
+        }
+
+        [Theory, AutoData]
+        public void TwoInstancesAreNotEqualWhenTheirContainedValuesAreNotEqual(Some<Guid> m1, Some<Guid> m2)
+        {
+            // Arrange
+
+            // Act
+
+            // Assert
+            m1.Equals((object)m2).Should().BeFalse();
         }
     }
 }
