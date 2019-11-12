@@ -157,7 +157,7 @@ namespace Functional.FluentAssertions.Tests
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage($"Expected subject to be <null>, but found *Functional.Nothing*");
+                .WithMessage($"Expected subject to be <null>, but found *None*");
         }
 
         [Fact]
