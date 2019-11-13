@@ -83,5 +83,15 @@ namespace Functional
                                               some: v => new [] { v }))
                          .SelectMany(i => i);
         }
+
+        public static IMaybe<T> SingleOrNone<T>(this IEnumerable<IMaybe<T>> souce)
+        {
+            if (souce is null)
+            {
+                throw new ArgumentNullException(nameof(souce));
+            }
+
+            return souce.DefaultIfEmpty(new None<T>()).Single();
+        }
     }
 }

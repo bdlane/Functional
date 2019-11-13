@@ -193,12 +193,38 @@ namespace Functional.Tests
             var input = expected.Select(g => Maybe.From(g))
                                 .Cast<IMaybe<Guid>>()
                                 .Union(empty);
-
+                
             // Act
             var actual = input.Choose();
 
             // Assert
             actual.Should().BeEquivalentTo(expected);
+        }
+
+        [Theory, AutoData]
+        public void SingleOrNoneReturnsSingleItemInList(Some<Guid> single)
+        {
+            // Arrange
+            var list = new List<IMaybe<Guid>> { single };
+
+            // Act
+            var actual = list.SingleOrNone();
+
+            // Assert
+            actual.Should().Be(single);
+        }
+
+        [Fact]
+        public void SingleOrNoneReturnsNoneWhenListIsEmpty()
+        {
+            // Arrange
+            var list = new List<IMaybe<Guid>>();
+
+            // Act
+            var actual = list.SingleOrNone();
+
+            // Assert
+            actual.Should().BeOfType<None<Guid>>();
         }
     }
 }
